@@ -60,12 +60,20 @@ pintP = f <$> notNull (spanP isDigit)
 intP :: Parser Int
 intP = nintP <|> pintP
 
+untilP :: (String -> Bool) -> Parser a -> Parser [a]
+untilP cond p = Parser f
+  where f input = case cond input of
+                    True -> Just (input, [])
+                    False -> do
+                      (input', x) <- parse p input
+                      liftM (fmap (x :)) . parse (untilP cond p) $ input'
+
 sepP :: Char -> Parser a -> Parser [a]
-sepP sep p = Parser f
-  where f "" = Just ("", [])
-        f input = do
-          (input', x) <- parse ((p <* charP sep) <|> (charP sep *> p) <|> p) input
-          liftM (fmap (x :)) . parse (sepP sep p) $ input'
+sepP sep p = untilP null p'
+  where p' = (p <* charP sep) <|> (charP sep *> p) <|> p
+
+linesP :: Parser a -> Parser [a]
+linesP p = sepP '\n' p
 
 combinator :: (a -> b -> c) -> Parser a -> Parser b -> Parser c
 combinator comb (Parser p1) (Parser p2)
