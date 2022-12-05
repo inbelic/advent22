@@ -60,6 +60,12 @@ pintP = f <$> notNull (spanP isDigit)
 intP :: Parser Int
 intP = nintP <|> pintP
 
+oneChar :: Parser Char
+oneChar = Parser f
+  where
+    f (y:ys) = Just (ys, y)
+    f [] = Nothing
+
 untilP :: (String -> Bool) -> Parser a -> Parser [a]
 untilP cond p = Parser f
   where f input = case cond input of
