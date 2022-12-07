@@ -6,6 +6,7 @@ import qualified D3.D3 as D3
 import qualified D4.D4 as D4
 import qualified D5.D5 as D5
 import qualified D6.D6 as D6
+import qualified D7.D7 as D7
 
 main :: IO ()
 main = do
@@ -22,5 +23,7 @@ main = do
   D5.run
   putStrLn ""
   D6.run
+  putStrLn ""
+  D7.run
   putStrLn ""
   putStrLn "That's all folks"

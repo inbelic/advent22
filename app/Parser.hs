@@ -66,6 +66,14 @@ oneChar = Parser f
     f (y:ys) = Just (ys, y)
     f [] = Nothing
 
+whileP :: Parser a -> Parser [a]
+whileP p = Parser f
+  where f input
+          = case parse p input of
+              Nothing -> Just (input, [])
+              (Just (input', x)) -> liftM (fmap (x :))
+                                  . parse (whileP p) $ input'
+
 untilP :: (String -> Bool) -> Parser a -> Parser [a]
 untilP cond p = Parser f
   where f input = case cond input of
