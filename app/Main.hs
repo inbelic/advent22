@@ -9,6 +9,11 @@ import qualified D6.D6 as D6
 import qualified D7.D7 as D7
 import qualified D8.D8 as D8
 import qualified D9.D9 as D9
+import qualified D10.D10 as D10
+import qualified D11.D11 as D11
+import qualified D12.D12 as D12
+import qualified D13.D13 as D13
+import qualified D14.D14 as D14
 
 main :: IO ()
 main = do
@@ -31,5 +36,14 @@ main = do
   D8.run
   putStrLn ""
   D9.run
+  putStrLn ""
+  D10.run
+  D11.run
+  putStrLn ""
+  D12.run
+  putStrLn ""
+  D13.run
+  putStrLn ""
+  D14.run
   putStrLn ""
   putStrLn "That's all folks"

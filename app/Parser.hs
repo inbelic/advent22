@@ -89,6 +89,11 @@ sepP sep p = untilP null p'
 linesP :: Parser a -> Parser [a]
 linesP p = sepP '\n' p
 
+strSepP :: String -> Parser a -> Parser [a]
+strSepP sep p = untilP (oR null ((==) '\n' . head)) p'
+  where p' = (p <* stringP sep) <|> (stringP sep *> p) <|> p
+        oR f g x = f x || g x
+
 combinator :: (a -> b -> c) -> Parser a -> Parser b -> Parser c
 combinator comb (Parser p1) (Parser p2)
   = Parser $ \input -> do
