@@ -14,6 +14,7 @@ import qualified D11.D11 as D11
 import qualified D12.D12 as D12
 import qualified D13.D13 as D13
 import qualified D14.D14 as D14
+import qualified D15.D15 as D15
 
 main :: IO ()
 main = do
@@ -45,5 +46,7 @@ main = do
   D13.run
   putStrLn ""
   D14.run
+  putStrLn ""
+  D15.run
   putStrLn ""
   putStrLn "That's all folks"
